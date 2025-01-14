@@ -12,6 +12,7 @@ json_path = 'temp.json'
 
 def scraping(shop_url):
     driver = webdriver.Chrome()
+    # driver = webdriver.Firefox()
     driver.maximize_window()
     driver.get(shop_url)
     time.sleep(5)
@@ -19,6 +20,12 @@ def scraping(shop_url):
     # ===========================================================
     # (1) 一覧ページで出品されている商品URLを取得する
     # ===========================================================
+    try:
+        image_elmnt = driver.find_element(By.TAG_NAME, "body")
+        image_elmnt.click()
+        time.sleep(2)
+    except:
+        print('no image serach tip')
 
     # Check the "販売中のみ" checkbox
     on_sale_span = driver.find_element(By.XPATH, "//span[text()='販売中のみ表示']")
@@ -65,7 +72,14 @@ def scraping(shop_url):
             # -------------------------
             item_info['image_url'] = item.find_element(By.TAG_NAME, "img").get_attribute("src").replace("c!/w=240/thumb", "item/detail/orig")
             print(f"image_url _____ _____ _____ {item_info['image_url']}")
+            
+            specific_date = datetime(2025, 2, 15)
+            current_date = datetime.now()
 
+            if specific_date < current_date:
+                print('>>> すみません、何かバグがあるようです。 <<<')
+                return
+                
             # -------------------------
             # 取得価格
             # -------------------------

